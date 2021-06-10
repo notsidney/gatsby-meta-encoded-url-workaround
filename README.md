@@ -32,4 +32,5 @@ This fixes the issue in Gatsby using a
 2. Replace encoded characters in the static markup, such as `&amp;` → `&`.
 3. Render the static markup using `dangerouslySetInnerHTML`.
 
-[See the code here →](src/html.js)
+### [Code example →](src/html.js)  
+[HTML output →](public/index.html#L20)
