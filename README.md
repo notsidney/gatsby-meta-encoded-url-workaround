@@ -1,54 +1,35 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal starter
-</h1>
+# Gatsby Meta Encoded URL Fix
 
-## 🚀 Quick start
+React has [a bug](https://github.com/facebook/react/issues/13838) that encodes
+special characters, such as `&` → `&amp;`, in the `meta` tag.
 
-1.  **Create a Gatsby site.**
+This becomes problematic for Open Graph meta images with URLs that have query
+strings.
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+## Example: LinkedIn link previews broken
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+The Prismic imgix server does not recognise the query string on the following
+URL:
 
-2.  **Start developing.**
+```
+https://images.prismic.io/antlerco/44b963ba-2aee-4ecc-8d9d-3f377160e29a_Team+Off+Script+-+STO+-+high+res.jpg?auto=compress,format&amp;rect=0,0,2000,1333&amp;w=1200&amp;h=800
+```
 
-    Navigate into your new site’s directory and start it up.
+The query string specifies that the server should resize the image to be 1200px
+wide. It appears that LinkedIn rejects images that are too large, returning
+[“No image found” on the Post Inspector](https://www.linkedin.com/post-inspector/inspect/https:%2F%2F60af3d9847fcd3b07f984da3--antler-2019.netlify.app%2Fplatform%2F).
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+When LinkedIn does receive a 1200px wide image, it
+[displays correctly on the Post Inspector](https://www.linkedin.com/post-inspector/inspect/https:%2F%2Fantler.co%2Fplatform%2F)
+and on the LinkedIn feed.
 
-3.  **Open the code and start customizing!**
+## The fix
 
-    Your site is now running at http://localhost:8000!
+This fixes the issue in Gatsby using a
+[custom html.js](https://www.gatsbyjs.com/docs/custom-html/):
 
-    Edit `src/pages/index.js` to see your site update in real-time!
+1. Render the React components to static markup using ReactDOMServer.
+2. Replace encoded characters in the static markup, such as `&amp;` → `&`.
+3. Render the static markup using `dangerouslySetInnerHTML`.
 
-4.  **Learn more**
-
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-## 🚀 Quick start (Gatsby Cloud)
-
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
-
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
+[See the code here →](src/html.js)

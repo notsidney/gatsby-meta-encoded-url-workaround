@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-test",
+  "name": "gatsby-meta-encoded-url-fix",
   "version": "1.0.0",
   "private": true,
-  "description": "Gatsby Test",
+  "description": "Gatsby Meta Encoded URL Fix",
   "author": "Sidney Alcantara",
   "keywords": [
     "gatsby"
