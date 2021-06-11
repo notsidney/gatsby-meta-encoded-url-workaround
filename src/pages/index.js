@@ -134,7 +134,7 @@ const IndexPage = () => {
       <Helmet
       // encodeSpecialCharacters={false}
       >
-        <meta name="og:title" content="Gatsby Meta Encoded URL Fix" />
+        <meta name="og:title" content="Gatsby Meta Encoded URL Workaround" />
         <meta
           name="og:image"
           content="https://images.prismic.io/antlerco/2212beef-5228-46b1-b462-ba35f2bb7db7_platform_page.jpg?auto=compress,format&rect=0,0,1200,800&w=1200&h=800"

@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-meta-encoded-url-fix",
+  "name": "gatsby-meta-encoded-url-workaround",
   "version": "1.0.0",
   "private": true,
-  "description": "Gatsby Meta Encoded URL Fix",
+  "description": "Gatsby Meta Encoded URL Workaround",
   "author": "Sidney Alcantara",
   "keywords": [
     "gatsby"

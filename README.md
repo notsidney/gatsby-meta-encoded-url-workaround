@@ -1,4 +1,4 @@
-# Gatsby Meta Encoded URL Fix
+# Gatsby Meta Encoded URL Workaround
 
 React has [a bug](https://github.com/facebook/react/issues/13838) that encodes
 special characters, such as `&` → `&amp;`, in the `meta` tag.
@@ -23,14 +23,15 @@ When LinkedIn does receive a 1200px wide image, it
 [displays correctly on the Post Inspector](https://www.linkedin.com/post-inspector/inspect/https:%2F%2Fantler.co%2Fplatform%2F)
 and on the LinkedIn feed.
 
-## The fix
+## The workaround
 
-This fixes the issue in Gatsby using a
+This works around the issue in Gatsby using a
 [custom html.js](https://www.gatsbyjs.com/docs/custom-html/):
 
 1. Render the React components to static markup using ReactDOMServer.
 2. Replace encoded characters in the static markup, such as `&amp;` → `&`.
 3. Render the static markup using `dangerouslySetInnerHTML`.
 
-### [Code example →](src/html.js)  
+### [Code example →](src/html.js)
+
 [HTML output →](public/index.html#L20)
